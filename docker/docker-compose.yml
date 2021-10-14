@@ -1,0 +1,49 @@
+version: '3'
+
+networks:
+  network:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
+
+services:
+  nginx:
+    image: diplomski-nginx:1.21.3
+    build:
+      context: .
+      dockerfile: nginx.dockerfile
+    container_name: nginx
+    restart: unless-stopped
+    depends_on:
+      - php
+      - db
+    networks:
+      - network
+
+  db:
+    image: mariadb:10.5.7
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    env_file: ../.env
+    networks:
+      - network
+    volumes:
+      - ../src:/var/www/html:rw
+      - ../src/assets/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - db:/var/lib/mysql/
+
+  php:
+    image: diplomski-php:8.0-fpm
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    container_name: php
+    restart: unless-stopped
+    tty: true
+    networks:
+      - network
