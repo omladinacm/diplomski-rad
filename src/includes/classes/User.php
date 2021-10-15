@@ -22,7 +22,7 @@ class User
         return isset($_SESSION["userLoggedIn"]);
     }
 
-    public function getUsername(): string
+    public function getUsername()
     {
         return $this->sqlData["username"];
     }

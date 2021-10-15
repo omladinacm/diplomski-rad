@@ -6,15 +6,15 @@ class ProfileGenerator
     /**
      * @var \PDO
      */
-    private PDO $con;
+    private $con;
     /**
      * @var \User
      */
-    private User $userLoggedInObj;
+    private $userLoggedInObj;
     /**
      * @var string
      */
-    private ProfileData|string $profileData;
+    private $profileData;
 
     public function __construct(PDO $con, User $userLoggedInObj, string $profileUsername)
     {
@@ -23,7 +23,7 @@ class ProfileGenerator
         $this->profileData = new ProfileData($con, $profileUsername);
     }
 
-    public function create(): string
+    public function create()
     {
         $profileUsername = $this->profileData->getProfileUsername();
 
@@ -44,7 +44,7 @@ class ProfileGenerator
                 </div>";
     }
 
-    public function createCoverPhotoSection(): string
+    public function createCoverPhotoSection()
     {
         $coverPhotoSrc = $this->profileData->getCoverPhoto();
         $name = $this->profileData->getProfileUserFullName();
@@ -55,7 +55,7 @@ class ProfileGenerator
                 </div>";
     }
 
-    public function createHeaderSection(): string
+    public function createHeaderSection()
     {
         $profileImage = $this->profileData->getProfilePicture();
         $name = $this->profileData->getProfileUserFullName();
@@ -79,7 +79,7 @@ class ProfileGenerator
                 </div>";
     }
 
-    public function createTabsSection(): string
+    public function createTabsSection()
     {
         return "<ul class='nav nav-tabs' role='tablist'>
                   <li class='nav-item'>
@@ -93,7 +93,7 @@ class ProfileGenerator
                 </ul>";
     }
 
-    public function createContentSection(): string
+    public function createContentSection()
     {
         $videos = $this->profileData->getUsersVideos();
 
@@ -116,19 +116,20 @@ class ProfileGenerator
                 </div>";
     }
 
-    private function createHeaderButton(): string
+    private function createHeaderButton()
     {
         if ($this->userLoggedInObj->getUsername() == $this->profileData->getProfileUsername()) {
             return "";
         } else {
             return ButtonProvider::createSubscriberButton(
+                $this->con,
                 $this->profileData->getProfileUserObj(),
                 $this->userLoggedInObj
             );
         }
     }
 
-    private function createAboutSection(): string
+    private function createAboutSection()
     {
         $html = "<div class='section'>
                     <div class='title'>

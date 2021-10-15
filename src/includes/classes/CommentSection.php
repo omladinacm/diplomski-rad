@@ -3,9 +3,9 @@
 
 class CommentSection
 {
-    private PDO $con;
-    private Video $video;
-    private User $userLoggedInObj;
+    private $con;
+    private $video;
+    private $userLoggedInObj;
 
     public function __construct(PDO $con, Video $video, User $userLoggedInObj)
     {
@@ -14,12 +14,12 @@ class CommentSection
         $this->userLoggedInObj = $userLoggedInObj;
     }
 
-    public function create(): string
+    public function create()
     {
         return $this->createCommentSection();
     }
 
-    private function createCommentSection(): string
+    private function createCommentSection()
     {
         $numComments = $this->video->getNumberOfComments();
         $postedBy = $this->userLoggedInObj->getUsername();
@@ -36,7 +36,7 @@ class CommentSection
             $commentItems .= $comment->create();
         }
 
-        return "<div class='commentSection'>
+        $html = "<div class='commentSection'>
                     <div class='header'>
                         <span class='commentCount'>$numComments Comments</span>
                         <div class='commentForm'>
@@ -49,5 +49,7 @@ class CommentSection
                         $commentItems
                     </div>
                 </div>";
+
+        return $html;
     }
 }

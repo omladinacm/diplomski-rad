@@ -1,17 +1,19 @@
 <?php
 
-require_once '../classes/ButtonProvider.php';
+require_once 'includes/classes/ButtonProvider.php';
 
 class VideoInfoControls
 {
-    private Video $video;
+    private $video;
+    private $userLoggedInObj;
 
-    public function __construct(Video $video)
+    public function __construct(Video $video, $userLoggedInObj)
     {
         $this->video = $video;
+        $this->userLoggedInObj = $userLoggedInObj;
     }
 
-    public function create(): string
+    public function create()
     {
         $likeButton = $this->createLikeButton();
         $dislikeButton = $this->createDislikeButton();
@@ -22,7 +24,7 @@ class VideoInfoControls
                 </div>";
     }
 
-    private function createLikeButton(): string
+    private function createLikeButton()
     {
         $text = $this->video->getLikes();
         $videoId = $this->video->getId();
@@ -37,7 +39,7 @@ class VideoInfoControls
         return ButtonProvider::createButton($text, $imageSrc, $action, $class);
     }
 
-    private function createDislikeButton(): string
+    private function createDislikeButton()
     {
         $text = $this->video->getDislikes();
         $videoId = $this->video->getId();

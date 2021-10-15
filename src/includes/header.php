@@ -56,7 +56,7 @@ $userLoggedInObj = new User($con, $usernameLoggedIn);
     </div>
     <div id="sideNavContainer" style="display: none;">
         <?php
-        $navigationProvider = new NavigationMenuProvider($userLoggedInObj);
+        $navigationProvider = new NavigationMenuProvider($con, $userLoggedInObj);
         echo $navigationProvider->create();
         ?>
     </div>

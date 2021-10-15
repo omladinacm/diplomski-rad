@@ -23,37 +23,37 @@ class Video
         }
     }
 
-    public function getId(): int
+    public function getId()
     {
         return $this->sqlData["id"];
     }
 
-    public function getUploadedBy(): string
+    public function getUploadedBy()
     {
         return $this->sqlData["uploadedBy"];
     }
 
-    public function getTitle(): string
+    public function getTitle()
     {
         return $this->sqlData["title"];
     }
 
-    public function getDescription(): string
+    public function getDescription()
     {
         return $this->sqlData["description"];
     }
 
-    public function getPrivacy(): bool
+    public function getPrivacy()
     {
         return $this->sqlData["privacy"];
     }
 
-    public function getFilePath(): string
+    public function getFilePath()
     {
         return $this->sqlData["filePath"];
     }
 
-    public function getCategory(): int
+    public function getCategory()
     {
         return $this->sqlData["category"];
     }
@@ -68,12 +68,12 @@ class Video
         return date("M jS, Y",strtotime($this->sqlData["uploadDate"]));
     }
 
-    public function getViews(): int
+    public function getViews()
     {
         return $this->sqlData["views"];
     }
 
-    public function getDuration(): string
+    public function getDuration()
     {
         return $this->sqlData["duration"];
     }
@@ -90,7 +90,7 @@ class Video
         $this->sqlData["views"] = $this->sqlData["views"] + 1;
     }
 
-    public function getLikes(): int
+    public function getLikes()
     {
         $videoId = $this->getId();
 
@@ -103,7 +103,7 @@ class Video
         return $data["count"];
     }
 
-    public function getDislikes(): int
+    public function getDislikes()
     {
         $videoId = $this->getId();
 
@@ -235,7 +235,7 @@ class Video
         return $comments;
     }
 
-    public function getThumbnail(): string
+    public function getThumbnail()
     {
         $videoId = $this->getId();
 

@@ -6,11 +6,11 @@ class SelectThumbnail
     /**
      * @var \PDO
      */
-    private PDO $con;
+    private $con;
     /**
      * @var \Video
      */
-    private Video $video;
+    private $video;
 
     public function __construct(PDO $con, Video $video)
     {
@@ -18,7 +18,7 @@ class SelectThumbnail
         $this->video = $video;
     }
 
-    public function create(): string
+    public function create()
     {
         $thumbnailData = $this->getThumbnailData();
 
@@ -33,7 +33,7 @@ class SelectThumbnail
                 </div>";
     }
 
-    private function getThumbnailData(): array
+    private function getThumbnailData()
     {
         $data = [];
         $videoId = $this->video->getId();
@@ -49,7 +49,7 @@ class SelectThumbnail
         return $data;
     }
 
-    private function createThumbnailItem($data): string
+    private function createThumbnailItem($data)
     {
         $id = $data["id"];
         $url = $data["filePath"];
@@ -57,7 +57,7 @@ class SelectThumbnail
         $selected = $data["selected"] == 1 ? "selected" : "";
 
         return "<div class='thumbnailItem $selected' onclick='setNewThumbnail($id, $videoId, this)'>
-                    <img src='$url' alt=''>
+                    <img src='$url'>
                 </div>";
     }
 }

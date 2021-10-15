@@ -6,8 +6,8 @@ class VideoGridItem
     /**
      * @var \Video
      */
-    private Video $video;
-    private bool $largeMode;
+    private $video;
+    private $largeMode;
 
     public function __construct(Video $video, $largeMode)
     {
@@ -21,28 +21,32 @@ class VideoGridItem
         $details = $this->createDetails();
         $url = "watch.php?id=" . $this->video->getId();
 
-        return "<a href='$url'>
+        $html = "<a href='$url'>
                     <div class='videoGridItem'>
                         $thumbnail
                         $details
                     </div>
                 </a>";
+
+        return $html;
     }
 
-    private function createThumbnail(): string
+    private function createThumbnail()
     {
         $thumbnail = $this->video->getThumbnail();
         $duration = $this->video->getDuration();
 
-        return "<div class='thumbnail'>
+        $html = "<div class='thumbnail'>
                     <img src='$thumbnail'>
                     <div class='duration'>
                         <span>$duration</span>
                     </div>
                 </div>";
+
+        return $html;
     }
 
-    private function createDetails(): string
+    private function createDetails()
     {
         $title = $this->video->getTitle();
         $username = $this->video->getUploadedBy();
@@ -50,7 +54,7 @@ class VideoGridItem
         $description = $this->createDescription();
         $timestamp = $this->video->getTimeStamp();
 
-        return "<div class='details'>
+        $html = "<div class='details'>
                     <h3 class='title'>$title</h3>
                     <span class='username'>$username</span>
                     <div class='stats'>
@@ -59,9 +63,11 @@ class VideoGridItem
                     </div>
                     $description
                 </div>";
+
+        return $html;
     }
 
-    private function createDescription(): string
+    private function createDescription()
     {
         if (!$this->largeMode) {
             return "";

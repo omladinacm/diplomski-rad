@@ -1,18 +1,16 @@
 <?php
 
 
-use JetBrains\PhpStorm\ArrayShape;
-
 class ProfileData
 {
     /**
      * @var \PDO
      */
-    private PDO $con;
+    private $con;
     /**
-     * @var string|\User
+     * @var string
      */
-    private string|User $profileUserObj;
+    private $profileUserObj;
 
     public function __construct(PDO $con, string $profileUsername)
     {
@@ -20,17 +18,17 @@ class ProfileData
         $this->profileUserObj = new User($con,$profileUsername);
     }
 
-    public function getProfileUserObj(): User|string
+    public function getProfileUserObj()
     {
         return $this->profileUserObj;
     }
 
-    public function getProfileUsername(): string
+    public function getProfileUsername()
     {
         return $this->profileUserObj->getUsername();
     }
 
-    public function userExists(): bool
+    public function userExists()
     {
         $profileUsername = $this->getProfileUsername();
         $query = $this->con->prepare("SELECT * FROM users WHERE username = :username");
@@ -40,27 +38,27 @@ class ProfileData
         return $query->rowCount() != 0;
     }
 
-    public function getCoverPhoto(): string
+    public function getCoverPhoto()
     {
         return "assets/images/coverPhotos/default-cover-photo.jpg";
     }
 
-    public function getProfileUserFullName(): string
+    public function getProfileUserFullName()
     {
         return $this->profileUserObj->getName();
     }
 
-    public function getProfilePicture(): string
+    public function getProfilePicture()
     {
         return $this->profileUserObj->getProfilePicture();
     }
 
-    public function getSubscriberCount(): int
+    public function getSubscriberCount()
     {
         return $this->profileUserObj->getSubscriberCount();
     }
 
-    public function getUsersVideos(): array
+    public function getUsersVideos()
     {
         $username = $this->getProfileUsername();
 
@@ -76,13 +74,7 @@ class ProfileData
         return $videos;
     }
 
-    #[ArrayShape([
-        "Name" => "string",
-        "Username" => "string",
-        "Subscribers" => "int",
-        "Total views" => "int",
-        "Sign up date" => "string"
-    ])] public function getAllUserDetails(): array
+    public function getAllUserDetails()
     {
         return [
             "Name" => $this->getProfileUserFullName(),
@@ -93,7 +85,7 @@ class ProfileData
         ];
     }
 
-    private function getTotalViews(): int
+    private function getTotalViews()
     {
         $username = $this->getProfileUsername();
 
@@ -104,7 +96,7 @@ class ProfileData
         return $query->fetchColumn();
     }
 
-    private function getSignUpDate(): string
+    private function getSignUpDate()
     {
         $date = strtotime($this->profileUserObj->getSignUpDate());
 

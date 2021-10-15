@@ -1,14 +1,11 @@
 <?php
 
-use JetBrains\PhpStorm\Pure;
-
 require_once "ButtonProvider.php";
 
 class CommentControls
 {
-    private PDO $con;
-    private Comment $comment;
-    private User $userLoggedInObj;
+    private $con;
+    private $comment;
 
     public function __construct(PDO $con, Comment $comment, User $userLoggedInObj)
     {
@@ -17,7 +14,7 @@ class CommentControls
         $this->userLoggedInObj = $userLoggedInObj;
     }
 
-    public function create(): string
+    public function create()
     {
         $replyButton = $this->createReplyButton();
         $likesCount = $this->createLikesCount();
@@ -34,7 +31,7 @@ class CommentControls
                 $replySection";
     }
 
-    private function createLikeButton(): string
+    private function createLikeButton()
     {
         $commentId = $this->comment->getId();
         $videoId = $this->comment->getVideoId();
@@ -49,7 +46,7 @@ class CommentControls
         return ButtonProvider::createButton("", $imageSrc, $action, $class);
     }
 
-    private function createDislikeButton(): string
+    private function createDislikeButton()
     {
         $commentId = $this->comment->getId();
         $videoId = $this->comment->getVideoId();
@@ -64,7 +61,7 @@ class CommentControls
         return ButtonProvider::createButton("", $imageSrc, $action, $class);
     }
 
-    #[Pure] private function createReplyButton(): string
+    private function createReplyButton()
     {
         $text = "REPLY";
         $action = "toggleReply(this)";
@@ -72,7 +69,7 @@ class CommentControls
         return ButtonProvider::createButton($text, null, $action, null);
     }
 
-    private function createLikesCount(): string
+    private function createLikesCount()
     {
         $text = $this->comment->getLikes();
 
@@ -81,7 +78,7 @@ class CommentControls
         return "<span class='likesCount'>$text</span>";
     }
 
-    private function createReplySection(): string
+    private function createReplySection()
     {
         $postedBy = $this->userLoggedInObj->getUsername();
         $videoId = $this->comment->getVideoId();
@@ -95,11 +92,13 @@ class CommentControls
         $postButtonAction = "postComment(this, \"$postedBy\", $videoId, $commentId, \"repliesSection\")";
         $postButton = ButtonProvider::createButton("Reply", null, $postButtonAction, "postComment");
 
-        return "<div class='commentForm hidden'>
+        $html = "<div class='commentForm hidden'>
                             $profileButton
                             <textarea class='commentBodyClass' placeholder='Add a public comment'></textarea>
                             $cancelButton
                             $postButton
                 </div>";
+
+        return $html;
     }
 }
