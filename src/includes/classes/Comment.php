@@ -38,7 +38,7 @@ class Comment
         $this->videoId = $videoId;
     }
 
-    public function create()
+    public function create(): string
     {
         $commentId = $this->getId();
         $videoId = $this->getVideoId();
@@ -80,7 +80,14 @@ class Comment
                 </div>";
     }
 
-    public function time_elapsed_string($datetime, $full = false): string
+    /**
+     * @param       $datetime
+     * @param false $full
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function time_elapsed_string($datetime, bool $full = false): string
     {
         $now = new DateTime;
         $ago = new DateTime($datetime);
@@ -131,12 +138,12 @@ class Comment
         return $numLikes - $numDislikes;
     }
 
-    public function getId()
+    public function getId(): int
     {
         return $this->sqlData['id'];
     }
 
-    public function getVideoId()
+    public function getVideoId(): int
     {
         return $this->videoId;
     }
@@ -155,7 +162,7 @@ class Comment
         return $query->rowCount() > 0;
     }
 
-    public function wasDislikedBy()
+    public function wasDislikedBy(): bool
     {
         $commentId = $this->getId();
         $username = $this->userLoggedInObj->getUsername();
@@ -169,7 +176,7 @@ class Comment
         return $query->rowCount() > 0;
     }
 
-    public function getNumberOfReplies()
+    public function getNumberOfReplies(): int
     {
         $id = $this->getId();
 
@@ -180,7 +187,7 @@ class Comment
         return $query->fetchColumn();
     }
 
-    public function like()
+    public function like(): int
     {
         $commentId = $this->getId();
         $username = $this->userLoggedInObj->getUsername();
@@ -209,7 +216,7 @@ class Comment
         }
     }
 
-    public function dislike()
+    public function dislike(): int
     {
         $commentId = $this->getId();
         $username = $this->userLoggedInObj->getUsername();
@@ -238,7 +245,7 @@ class Comment
         }
     }
 
-    public function getReplies()
+    public function getReplies(): string
     {
         $commentId = $this->getId();
         $videoId = $this->getVideoId();

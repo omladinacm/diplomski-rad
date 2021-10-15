@@ -6,13 +6,13 @@ class VideoGrid
     /**
      * @var \PDO
      */
-    private $con;
+    private PDO $con;
     /**
      * @var \User
      */
-    private $userLoggedInObj;
-    private $largeMode = false;
-    private $gridClass = "videoGrid";
+    private User $userLoggedInObj;
+    private bool $largeMode = false;
+    private string $gridClass = "videoGrid";
 
     public function __construct(PDO $con, User $userLoggedInObj)
     {
@@ -20,7 +20,7 @@ class VideoGrid
         $this->userLoggedInObj = $userLoggedInObj;
     }
 
-    public function create($videos, $title, $showFilter)
+    public function create($videos, $title, $showFilter): string
     {
         if ($videos == null) {
             $gridItems = $this->generateItems();
@@ -40,7 +40,7 @@ class VideoGrid
                 </div>";
     }
 
-    public function generateItems()
+    public function generateItems(): string
     {
         $query = $this->con->prepare("SELECT * FROM videos ORDER BY RAND() LIMIT 15");
         $query->execute();
@@ -56,7 +56,7 @@ class VideoGrid
         return $elementsHtml;
     }
 
-    public function generateItemsFromVideos($videos)
+    public function generateItemsFromVideos($videos): string
     {
         $elementsHtml = "";
 
@@ -68,7 +68,7 @@ class VideoGrid
         return $elementsHtml;
     }
 
-    public function createGridHeader($title, $showFilter)
+    public function createGridHeader($title, $showFilter): string
     {
         $filter = "";
 
@@ -93,17 +93,15 @@ class VideoGrid
                         </div>";
         }
 
-        $header = "<div class='videoGridHeader'>
+        return "<div class='videoGridHeader'>
                         <div class='left'>
                             $title
                         </div>
                         $filter
                     </div>";
-
-        return $header;
     }
 
-    public function createLarge($videos, $title, $showFilter)
+    public function createLarge($videos, $title, $showFilter): string
     {
         $this->gridClass .= " large";
         $this->largeMode = true;

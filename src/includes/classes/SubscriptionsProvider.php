@@ -6,11 +6,11 @@ class SubscriptionsProvider
     /**
      * @var \PDO
      */
-    private $con;
+    private PDO $con;
     /**
      * @var \User
      */
-    private $userLoggedInObj;
+    private User $userLoggedInObj;
 
     public function __construct(PDO $con, User $userLoggedInObj)
     {
@@ -18,7 +18,7 @@ class SubscriptionsProvider
         $this->userLoggedInObj = $userLoggedInObj;
     }
 
-    public function getVideos()
+    public function getVideos(): array
     {
         $videos = [];
         $subUserNames = [];

@@ -1,17 +1,19 @@
 <?php
 
 
+use JetBrains\PhpStorm\Pure;
+
 class ButtonProvider
 {
-    public static $signInFunction = "notSignedIn()";
+    public static string $signInFunction = "notSignedIn()";
 
-    public static function createLink($link) {
+    #[Pure] public static function createLink($link) {
         return User::isLoggedIn() ? $link : self::$signInFunction;
     }
 
-    public static function createButton($text, $imageSrc, $action, $class)
+    #[Pure] public static function createButton($text, $imageSrc, $action, $class): string
     {
-        $image = ($imageSrc == null) ? "" : "<img src='$imageSrc'>";
+        $image = ($imageSrc == null) ? "" : "<img src='$imageSrc' alt='button'>";
 
         $action = self::createLink($action);
 
@@ -21,9 +23,9 @@ class ButtonProvider
                 </button>";
     }
 
-    public static function createHyperlinkButton($text, $imageSrc, $href, $class)
+    public static function createHyperlinkButton($text, $imageSrc, $href, $class): string
     {
-        $image = ($imageSrc == null) ? "" : "<img src='$imageSrc'>";
+        $image = ($imageSrc == null) ? "" : "<img src='$imageSrc' alt=''>";
 
         return "<a href='$href'>
                     <button class='$class'>
@@ -33,32 +35,29 @@ class ButtonProvider
                 </a>";
     }
 
-    public static function createUserProfileButton(PDO $con, string $username)
+    public static function createUserProfileButton(PDO $con, string $username): string
     {
         $userObj = new User($con, $username);
         $profilePic = $userObj->getProfilePicture();
         $link = "profile.php?username=$username";
 
-        $html = "<a href='$link'>
-                    <img src='$profilePic' class='profilePicture'>
+        return "<a href='$link'>
+                    <img src='$profilePic' class='profilePicture' alt=''>
                 </a>";
-        return $html;
     }
 
-    public static function createEditVideoButton(int $videoId)
+    #[Pure] public static function createEditVideoButton(int $videoId): string
     {
         $href = "editVideo.php?videoId=$videoId";
 
         $button = self::createHyperlinkButton("EDIT VIDEO", null, $href, "edit button");
 
-        $html = "<div class='editVideoButtonContainer'>
+        return "<div class='editVideoButtonContainer'>
                     $button
                 </div>";
-
-        return $html;
     }
 
-    public static function createSubscriberButton(PDO $con, User $userToObj, User $userLoggedInObj)
+    public static function createSubscriberButton(User $userToObj, User $userLoggedInObj): string
     {
         $userTo = $userToObj->getUsername();
         $userLoggedIn = $userLoggedInObj->getUsername();
@@ -73,14 +72,12 @@ class ButtonProvider
 
         $button = self::createButton($buttonText, null, $action, $buttonClass);
 
-        $html = "<div class='subscribeButtonContainer'>
+        return "<div class='subscribeButtonContainer'>
                     $button
                 </div>";
-
-        return $html;
     }
 
-    public static function createUserProfileNavigationButton($con, $username)
+    public static function createUserProfileNavigationButton(PDO $con, $username): string
     {
         if (User::isLoggedIn()) {
             return ButtonProvider::createUserProfileButton($con, $username);

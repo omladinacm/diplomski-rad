@@ -1,13 +1,13 @@
 <?php
 
-require_once 'includes/classes/VideoInfoControls.php';
-require_once 'includes/classes/ButtonProvider.php';
+require_once '../classes/VideoInfoControls.php';
+require_once '../classes/ButtonProvider.php';
 
 class VideoInfoSection
 {
-    private $con;
-    private $video;
-    private $userLoggedInObj;
+    private PDO $con;
+    private Video $video;
+    private User $userLoggedInObj;
 
     public function __construct(PDO $con, Video $video, User $userLoggedInObj)
     {
@@ -16,17 +16,17 @@ class VideoInfoSection
         $this->userLoggedInObj = $userLoggedInObj;
     }
 
-    public function create()
+    public function create(): string
     {
         return $this->createPrimaryInfo() . $this->createSecondaryInfo();
     }
 
-    private function createPrimaryInfo()
+    private function createPrimaryInfo(): string
     {
         $title = $this->video->getTitle();
         $views = $this->video->getViews();
 
-        $videoInfoControls = new VideoInfoControls($this->video, $this->userLoggedInObj);
+        $videoInfoControls = new VideoInfoControls($this->video);
         $controls = $videoInfoControls->create();
 
         return "<div class='videoInfo'>
@@ -38,7 +38,7 @@ class VideoInfoSection
                 </div>";
     }
 
-    private function createSecondaryInfo()
+    private function createSecondaryInfo(): string
     {
         $description = $this->video->getDescription();
         $uploadDate = $this->video->getUploadDate();
@@ -49,10 +49,10 @@ class VideoInfoSection
             $actionButton = ButtonProvider::createEditVideoButton($this->video->getId());
         } else {
             $userToObject = new User($this->con, $uploadedBy);
-            $actionButton = ButtonProvider::createSubscriberButton($this->con, $userToObject, $this->userLoggedInObj);
+            $actionButton = ButtonProvider::createSubscriberButton($userToObject, $this->userLoggedInObj);
         }
 
-        $html = "<div class='secondaryInfo'>
+        return "<div class='secondaryInfo'>
                     <div class='topRow'>
                         $profileButton
                         <div class='uploadInfo'>
@@ -70,7 +70,5 @@ class VideoInfoSection
                         $description
                     </div>
                 </div>";
-
-        return $html;
     }
 }

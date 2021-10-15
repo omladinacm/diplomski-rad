@@ -6,11 +6,11 @@ class SearchResultsProvider
     /**
      * @var \PDO
      */
-    private $con;
+    private PDO $con;
     /**
      * @var \User
      */
-    private $userLoggedInObj;
+    private User $userLoggedInObj;
 
     public function __construct(PDO $con, User $userLoggedInObj)
     {
@@ -18,7 +18,7 @@ class SearchResultsProvider
         $this->userLoggedInObj = $userLoggedInObj;
     }
 
-    public function getVideos($term, $orderBy)
+    public function getVideos($term, $orderBy): array
     {
         $query = $this->con->prepare("SELECT * FROM videos WHERE title LIKE CONCAT('%', :term, '%') 
                                         OR uploadedBy LIKE CONCAT('%', :term, '%') ORDER BY $orderBy DESC");
