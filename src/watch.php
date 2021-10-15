@@ -21,7 +21,7 @@ $video->incrementViews();
 
 <?php
     $videoPlayer = new VideoPlayer($video);
-    echo $videoPlayer->create(0); //TODO
+    echo $videoPlayer->create(1); //TODO: Add option in user settings to turn autoplay on or off
 
     $videoInfoSection = new VideoInfoSection($con, $video, $userLoggedInObj);
     echo $videoInfoSection->create();

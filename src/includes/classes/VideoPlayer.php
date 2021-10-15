@@ -3,14 +3,14 @@
 
 class VideoPlayer
 {
-    private $video;
+    private Video $video;
 
     public function __construct(Video $video)
     {
         $this->video = $video;
     }
 
-    public function create($autoPlay)
+    public function create($autoPlay): string
     {
         if ($autoPlay) {
             $autoPlay = "autoplay";

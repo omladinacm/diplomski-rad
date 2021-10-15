@@ -8,19 +8,19 @@ class Comment
     /**
      * @var \PDO
      */
-    private $con;
+    private PDO $con;
     /**
      * @var array
      */
-    private $sqlData;
+    private mixed $sqlData;
     /**
      * @var \User
      */
-    private $userLoggedInObj;
+    private User $userLoggedInObj;
     /**
      * @var int
      */
-    private $videoId;
+    private int $videoId;
 
     public function __construct(PDO $con, $input, User $userLoggedInObj, int $videoId)
     {
@@ -60,7 +60,7 @@ class Comment
             $viewRepliesText = "<div class='repliesSection'></div>";
         }
 
-        $html = "<div class='itemContainer'>
+        return "<div class='itemContainer'>
                     <div class='comment'>
                         $profileButton
                         <div class='mainContainer'>
@@ -78,11 +78,10 @@ class Comment
                     $commentControls
                     $viewRepliesText
                 </div>";
-
-        return $html;
     }
 
-    public function time_elapsed_string($datetime, $full = false) {
+    public function time_elapsed_string($datetime, $full = false): string
+    {
         $now = new DateTime;
         $ago = new DateTime($datetime);
         $diff = $now->diff($ago);
@@ -142,7 +141,7 @@ class Comment
         return $this->videoId;
     }
 
-    public function wasLikedBy()
+    public function wasLikedBy(): bool
     {
         $commentId = $this->getId();
         $username = $this->userLoggedInObj->getUsername();

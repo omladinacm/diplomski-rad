@@ -3,36 +3,28 @@
 
 class FormSanitizer
 {
-    public static function sanitizeFormString($inputText)
+    public static function sanitizeFormString($inputText): string
     {
         $inputText = strip_tags($inputText);
         $inputText = str_replace(" ", "", $inputText);
         $inputText = strtolower($inputText);
-        $inputText = ucfirst($inputText);
-
-        return $inputText;
+        return ucfirst($inputText);
     }
 
-    public static function sanitizeFormUsername($inputText)
+    public static function sanitizeFormUsername($inputText): array|string
     {
         $inputText = strip_tags($inputText);
-        $inputText = str_replace(" ", "", $inputText);
-
-        return $inputText;
+        return str_replace(" ", "", $inputText);
     }
 
-    public static function sanitizeFormPassword($inputText)
+    public static function sanitizeFormPassword($inputText): string
     {
-        $inputText = strip_tags($inputText);
-
-        return $inputText;
+        return strip_tags($inputText);
     }
 
-    public static function sanitizeFormEmail($inputText)
+    public static function sanitizeFormEmail($inputText): array|string
     {
         $inputText = strip_tags($inputText);
-        $inputText = str_replace(" ", "", $inputText);
-
-        return $inputText;
+        return str_replace(" ", "", $inputText);
     }
 }

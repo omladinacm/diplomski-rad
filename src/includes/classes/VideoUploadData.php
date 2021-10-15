@@ -3,12 +3,12 @@
 
 class VideoUploadData
 {
-    private $videoDataArray;
-    private $title;
-    private $description;
-    private $privacy;
-    private $category;
-    private $uploadedBy;
+    private array $videoDataArray;
+    private string $title;
+    private string $description;
+    private bool $privacy;
+    private int $category;
+    private string $uploadedBy;
 
     public function __construct($videoDataArray, $title, $description, $privacy, $category, $uploadedBy)
     {
@@ -21,54 +21,54 @@ class VideoUploadData
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getVideoDataArray()
+    public function getVideoDataArray(): array
     {
         return $this->videoDataArray;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
-     * @return mixed
+     * @return bool
      */
-    public function getPrivacy()
+    public function getPrivacy(): bool
     {
         return $this->privacy;
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getCategory()
+    public function getCategory(): int
     {
         return $this->category;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getUploadedBy()
+    public function getUploadedBy(): string
     {
         return $this->uploadedBy;
     }
 
-    public function updateDetails(PDO $con, int $videoId)
+    public function updateDetails(PDO $con, int $videoId): bool
     {
         $query = $con->prepare("UPDATE videos SET title=:title, description=:description, privacy=:privacy,
                                 category=:category WHERE id=:videoId");
