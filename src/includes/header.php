@@ -9,12 +9,14 @@ require_once 'classes/SubscriptionsProvider.php';
 require_once 'classes/NavigationMenuProvider.php';
 
 $usernameLoggedIn = User::isLoggedIn() ? $_SESSION["userLoggedIn"] : "";
-$userLoggedInObj = new User($con, $usernameLoggedIn);
+//if (!empty($usernameLoggedIn)) {
+    $userLoggedInObj = new User($con, $usernameLoggedIn);
+//}
 ?>
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-    <title>Video Tube</title>
+    <title>VideoTube</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
@@ -46,17 +48,17 @@ $userLoggedInObj = new User($con, $usernameLoggedIn);
         </div>
 
         <div class="rightIcons">
-            <a href="../upload.php">
-                <img class="upload" src="../assets/images/icons/upload.png" alt="Upload button">
-            </a>
             <?php
+            if (User::isLoggedIn()) {
+                echo ButtonProvider::createUploadButton();
+            }
             echo ButtonProvider::createUserProfileNavigationButton($con, $userLoggedInObj->getUsername());
             ?>
         </div>
     </div>
     <div id="sideNavContainer" style="display: none;">
         <?php
-        $navigationProvider = new NavigationMenuProvider($con, $userLoggedInObj);
+        $navigationProvider = new NavigationMenuProvider($userLoggedInObj);
         echo $navigationProvider->create();
         ?>
     </div>

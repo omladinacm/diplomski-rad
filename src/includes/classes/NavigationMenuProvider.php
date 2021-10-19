@@ -4,21 +4,16 @@
 class NavigationMenuProvider
 {
     /**
-     * @var \PDO
-     */
-    private $con;
-    /**
      * @var \User
      */
-    private $userLoggedInObj;
+    private User $userLoggedInObj;
 
-    public function __construct(PDO $con, User $userLoggedInObj)
+    public function __construct(User $userLoggedInObj)
     {
-        $this->con = $con;
         $this->userLoggedInObj = $userLoggedInObj;
     }
 
-    public function create()
+    public function create(): string
     {
         $menuHtml = $this->createNavItem("Home", "assets/images/icons/home.png", "index.php");
         $menuHtml .= $this->createNavItem("Trending", "assets/images/icons/trending.png", "trending.php");
@@ -35,7 +30,7 @@ class NavigationMenuProvider
                 </div>";
     }
 
-    private function createNavItem($text, $icon, $link)
+    private function createNavItem($text, $icon, $link): string
     {
         return "<div class='navigationItem'>
                     <a href='$link'>
@@ -45,11 +40,12 @@ class NavigationMenuProvider
                 </div>";
     }
 
-    private function createSubscriptionsSection()
+    private function createSubscriptionsSection(): string
     {
         $subscriptions = $this->userLoggedInObj->getSubscriptions();
 
         $html = "<span class='heading'>Subscriptions</span>";
+
         foreach ($subscriptions as $subscription) {
             $subUsername = $subscription->getUsername();
             $html .= $this->createNavItem($subUsername, $subscription->getProfilePicture(), "profile.php?username=$subUsername");

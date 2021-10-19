@@ -6,11 +6,11 @@ class LikedVideosProvider
     /**
      * @var \PDO
      */
-    private $con;
+    private PDO $con;
     /**
      * @var \User
      */
-    private $userLoggedInObj;
+    private User $userLoggedInObj;
 
     public function __construct(PDO $con, User $userLoggedInObj)
     {
@@ -18,7 +18,7 @@ class LikedVideosProvider
         $this->userLoggedInObj = $userLoggedInObj;
     }
 
-    public function getVideos()
+    public function getVideos(): array
     {
         $videos = [];
         $username = $this->userLoggedInObj->getUsername();

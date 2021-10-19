@@ -3,8 +3,17 @@
 
 class Video
 {
+    /**
+     * @var \PDO
+     */
     private PDO $con;
+    /**
+     * @var mixed|array
+     */
     private mixed $sqlData;
+    /**
+     * @var \User
+     */
     private User $userLoggedInObj;
 
     public function __construct(PDO $con, $input, User $userLoggedInObj)

@@ -6,47 +6,46 @@ class VideoGridItem
     /**
      * @var \Video
      */
-    private $video;
-    private $largeMode;
+    private Video $video;
+    /**
+     * @var bool
+     */
+    private bool $largeMode;
 
-    public function __construct(Video $video, $largeMode)
+    public function __construct(Video $video, bool $largeMode)
     {
         $this->video = $video;
         $this->largeMode = $largeMode;
     }
 
-    public function create()
+    public function create(): string
     {
         $thumbnail = $this->createThumbnail();
         $details = $this->createDetails();
         $url = "watch.php?id=" . $this->video->getId();
 
-        $html = "<a href='$url'>
+        return "<a href='$url'>
                     <div class='videoGridItem'>
                         $thumbnail
                         $details
                     </div>
                 </a>";
-
-        return $html;
     }
 
-    private function createThumbnail()
+    private function createThumbnail(): string
     {
         $thumbnail = $this->video->getThumbnail();
         $duration = $this->video->getDuration();
 
-        $html = "<div class='thumbnail'>
+        return "<div class='thumbnail'>
                     <img src='$thumbnail'>
                     <div class='duration'>
                         <span>$duration</span>
                     </div>
                 </div>";
-
-        return $html;
     }
 
-    private function createDetails()
+    private function createDetails(): string
     {
         $title = $this->video->getTitle();
         $username = $this->video->getUploadedBy();
@@ -54,7 +53,7 @@ class VideoGridItem
         $description = $this->createDescription();
         $timestamp = $this->video->getTimeStamp();
 
-        $html = "<div class='details'>
+        return "<div class='details'>
                     <h3 class='title'>$title</h3>
                     <span class='username'>$username</span>
                     <div class='stats'>
@@ -63,11 +62,9 @@ class VideoGridItem
                     </div>
                     $description
                 </div>";
-
-        return $html;
     }
 
-    private function createDescription()
+    private function createDescription(): string
     {
         if (!$this->largeMode) {
             return "";
