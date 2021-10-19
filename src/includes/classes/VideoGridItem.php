@@ -7,15 +7,18 @@ class VideoGridItem
      * @var \Video
      */
     private Video $video;
+    /**
+     * @var bool
+     */
     private bool $largeMode;
 
-    public function __construct(Video $video, $largeMode)
+    public function __construct(Video $video, bool $largeMode)
     {
         $this->video = $video;
         $this->largeMode = $largeMode;
     }
 
-    public function create()
+    public function create(): string
     {
         $thumbnail = $this->createThumbnail();
         $details = $this->createDetails();

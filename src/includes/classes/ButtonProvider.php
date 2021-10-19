@@ -7,13 +7,15 @@ class ButtonProvider
 {
     public static string $signInFunction = "notSignedIn()";
 
-    #[Pure] public static function createLink($link) {
+    #[Pure]
+    public static function createLink($link) {
         return User::isLoggedIn() ? $link : self::$signInFunction;
     }
 
-    #[Pure] public static function createButton($text, $imageSrc, $action, $class): string
+    #[Pure]
+    public static function createButton($text, $imageSrc, $action, $class): string
     {
-        $image = ($imageSrc == null) ? "" : "<img src='$imageSrc' alt='button'>";
+        $image = ($imageSrc == null) ? "" : "<img src='$imageSrc'>";
 
         $action = self::createLink($action);
 
@@ -25,13 +27,22 @@ class ButtonProvider
 
     public static function createHyperlinkButton($text, $imageSrc, $href, $class): string
     {
-        $image = ($imageSrc == null) ? "" : "<img src='$imageSrc' alt=''>";
+        $image = ($imageSrc == null) ? "" : "<img src='$imageSrc'>";
 
         return "<a href='$href'>
                     <button class='$class'>
                         $image
                         <span class='text'>$text</span>
                     </button>
+                </a>";
+    }
+
+    public static function createUploadButton()
+    {
+        $link = "upload.php";
+
+        return "<a href='$link'>
+                <img class='upload' src='../assets/images/icons/upload.png' alt='Upload button'>
                 </a>";
     }
 
@@ -42,22 +53,25 @@ class ButtonProvider
         $link = "profile.php?username=$username";
 
         return "<a href='$link'>
-                    <img src='$profilePic' class='profilePicture' alt=''>
+                    <img src='$profilePic' class='profilePicture'>
                 </a>";
     }
 
-    #[Pure] public static function createEditVideoButton(int $videoId): string
+    #[Pure]
+    public static function createEditVideoButton(int $videoId): string
     {
         $href = "editVideo.php?videoId=$videoId";
 
         $button = self::createHyperlinkButton("EDIT VIDEO", null, $href, "edit button");
 
-        return "<div class='editVideoButtonContainer'>
+        $html = "<div class='editVideoButtonContainer'>
                     $button
                 </div>";
+
+        return $html;
     }
 
-    public static function createSubscriberButton(User $userToObj, User $userLoggedInObj): string
+    public static function createSubscriberButton(PDO $con, User $userToObj, User $userLoggedInObj): string
     {
         $userTo = $userToObj->getUsername();
         $userLoggedIn = $userLoggedInObj->getUsername();
@@ -77,7 +91,7 @@ class ButtonProvider
                 </div>";
     }
 
-    public static function createUserProfileNavigationButton(PDO $con, $username): string
+    public static function createUserProfileNavigationButton(PDO $con, null|string $username): string
     {
         if (User::isLoggedIn()) {
             return ButtonProvider::createUserProfileButton($con, $username);

@@ -6,11 +6,11 @@ class TrendingProvider
     /**
      * @var \PDO
      */
-    private PDO $con;
+    private $con;
     /**
      * @var \User
      */
-    private User $userLoggedInObj;
+    private $userLoggedInObj;
 
     public function __construct(PDO $con, User $userLoggedInObj)
     {
@@ -18,7 +18,7 @@ class TrendingProvider
         $this->userLoggedInObj = $userLoggedInObj;
     }
 
-    public function getVideos(): array
+    public function getVideos()
     {
         $videos = [];
 

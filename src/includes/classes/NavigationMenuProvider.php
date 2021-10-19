@@ -45,6 +45,7 @@ class NavigationMenuProvider
         $subscriptions = $this->userLoggedInObj->getSubscriptions();
 
         $html = "<span class='heading'>Subscriptions</span>";
+
         foreach ($subscriptions as $subscription) {
             $subUsername = $subscription->getUsername();
             $html .= $this->createNavItem($subUsername, $subscription->getProfilePicture(), "profile.php?username=$subUsername");

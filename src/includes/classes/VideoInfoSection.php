@@ -1,12 +1,21 @@
 <?php
 
-require_once '../classes/VideoInfoControls.php';
-require_once '../classes/ButtonProvider.php';
+require_once 'includes/classes/VideoInfoControls.php';
+require_once 'includes/classes/ButtonProvider.php';
 
 class VideoInfoSection
 {
+    /**
+     * @var \PDO
+     */
     private PDO $con;
+    /**
+     * @var \Video
+     */
     private Video $video;
+    /**
+     * @var \User
+     */
     private User $userLoggedInObj;
 
     public function __construct(PDO $con, Video $video, User $userLoggedInObj)
@@ -49,7 +58,7 @@ class VideoInfoSection
             $actionButton = ButtonProvider::createEditVideoButton($this->video->getId());
         } else {
             $userToObject = new User($this->con, $uploadedBy);
-            $actionButton = ButtonProvider::createSubscriberButton($userToObject, $this->userLoggedInObj);
+            $actionButton = ButtonProvider::createSubscriberButton($this->con, $userToObject, $this->userLoggedInObj);
         }
 
         return "<div class='secondaryInfo'>

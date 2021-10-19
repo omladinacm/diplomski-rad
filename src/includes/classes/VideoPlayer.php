@@ -3,6 +3,9 @@
 
 class VideoPlayer
 {
+    /**
+     * @var \Video
+     */
     private Video $video;
 
     public function __construct(Video $video)

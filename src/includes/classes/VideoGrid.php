@@ -11,7 +11,13 @@ class VideoGrid
      * @var \User
      */
     private User $userLoggedInObj;
+    /**
+     * @var bool
+     */
     private bool $largeMode = false;
+    /**
+     * @var string
+     */
     private string $gridClass = "videoGrid";
 
     public function __construct(PDO $con, User $userLoggedInObj)

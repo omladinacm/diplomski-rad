@@ -64,7 +64,8 @@ class CommentControls
         return ButtonProvider::createButton("", $imageSrc, $action, $class);
     }
 
-    #[Pure] private function createReplyButton(): string
+    #[Pure]
+    private function createReplyButton(): string
     {
         $text = "REPLY";
         $action = "toggleReply(this)";

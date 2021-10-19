@@ -20,12 +20,15 @@ class ProfileData
         $this->profileUserObj = new User($con,$profileUsername);
     }
 
+    /**
+     * @return \User|string
+     */
     public function getProfileUserObj(): User|string
     {
         return $this->profileUserObj;
     }
 
-    public function getProfileUsername(): string
+    public function getProfileUsername(): ?string
     {
         return $this->profileUserObj->getUsername();
     }
@@ -78,11 +81,12 @@ class ProfileData
 
     #[ArrayShape([
         "Name" => "string",
-        "Username" => "string",
+        "Username" => "null|string",
         "Subscribers" => "int",
-        "Total views" => "int",
+        "Total views" => "mixed",
         "Sign up date" => "string"
-    ])] public function getAllUserDetails(): array
+    ])]
+    public function getAllUserDetails(): array
     {
         return [
             "Name" => $this->getProfileUserFullName(),

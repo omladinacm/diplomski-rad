@@ -1,11 +1,9 @@
 <?php
 
 
-use JetBrains\PhpStorm\Pure;
-
 class SettingsFormProvider
 {
-    #[Pure] public function createUserDetailsForm($firstName, $lastName, $email): string
+    public function createUserDetailsForm($firstName, $lastName, $email)
     {
         $firstNameInput = $this->createFirstNameInput($firstName);
         $lastNameInput = $this->createLastNameInput($lastName);
@@ -21,7 +19,7 @@ class SettingsFormProvider
                 </form>";
     }
 
-    #[Pure] public function createPasswordForm(): string
+    public function createPasswordForm()
     {
         $oldPasswordInput = $this->createPasswordInput("oldPassword", "Old password");
         $newPasswordInput = $this->createPasswordInput("newPassword", "New password");
@@ -37,7 +35,7 @@ class SettingsFormProvider
                 </form>";
     }
 
-    private function createFirstNameInput($value): string
+    private function createFirstNameInput($value)
     {
         if ($value == null) $value = "";
 
@@ -46,7 +44,7 @@ class SettingsFormProvider
                 </div>";
     }
 
-    private function createLastNameInput($value): string
+    private function createLastNameInput($value)
     {
         if ($value == null) $value = "";
 
@@ -55,7 +53,7 @@ class SettingsFormProvider
                 </div>";
     }
 
-    private function createEmailInput($value): string
+    private function createEmailInput($value)
     {
         if ($value == null) $value = "";
 
@@ -64,19 +62,19 @@ class SettingsFormProvider
                 </div>";
     }
 
-    private function createPasswordInput($name, $placeholder): string
+    private function createPasswordInput($name, $placeholder)
     {
         return "<div class='form-group'>
                     <input class='form-control' type='password' placeholder='$placeholder' name='$name' required>
                 </div>";
     }
 
-    private function createSaveUserDetailsButton(): string
+    private function createSaveUserDetailsButton()
     {
         return "<button type='submit' class='btn btn-primary' name='saveDetailsButton'>Save</button>";
     }
 
-    private function createSavePasswordButton(): string
+    private function createSavePasswordButton()
     {
         return "<button type='submit' class='btn btn-primary' name='savePasswordButton'>Save</button>";
     }

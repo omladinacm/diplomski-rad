@@ -3,11 +3,29 @@
 
 class VideoUploadData
 {
+    /**
+     * @var array
+     */
     private array $videoDataArray;
+    /**
+     * @var string
+     */
     private string $title;
+    /**
+     * @var string
+     */
     private string $description;
+    /**
+     * @var bool
+     */
     private bool $privacy;
+    /**
+     * @var int
+     */
     private int $category;
+    /**
+     * @var string
+     */
     private string $uploadedBy;
 
     public function __construct($videoDataArray, $title, $description, $privacy, $category, $uploadedBy)
@@ -68,6 +86,12 @@ class VideoUploadData
         return $this->uploadedBy;
     }
 
+    /**
+     * @param \PDO $con
+     * @param int  $videoId
+     *
+     * @return bool
+     */
     public function updateDetails(PDO $con, int $videoId): bool
     {
         $query = $con->prepare("UPDATE videos SET title=:title, description=:description, privacy=:privacy,

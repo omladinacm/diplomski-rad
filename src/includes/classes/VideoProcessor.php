@@ -3,10 +3,27 @@
 require_once "VideoUploadData.php";
 class VideoProcessor
 {
+    /**
+     * @var \PDO
+     */
     private PDO $con;
+    /**
+     * Maximum file size limit for upload in bytes
+     * @var int
+     */
     private int $sizeLimit = 500000000;
+    /**
+     * Array of supported input file video formats
+     * @var array|string[]
+     */
     private array $allowedTypes = ["mp4", "flv", "webm", "mkv", "vob", "ogv", "ogg", "avi", "wmv", "mov", "mpeg", "mpg"];
+    /**
+     * @var string
+     */
     private string $ffmpegPath;
+    /**
+     * @var string
+     */
     private string $ffprobePath;
 
     public function __construct(PDO $con)

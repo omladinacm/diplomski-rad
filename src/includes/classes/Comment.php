@@ -80,14 +80,7 @@ class Comment
                 </div>";
     }
 
-    /**
-     * @param       $datetime
-     * @param false $full
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public function time_elapsed_string($datetime, bool $full = false): string
+    public function time_elapsed_string($datetime, $full = false): string
     {
         $now = new DateTime;
         $ago = new DateTime($datetime);
@@ -114,10 +107,11 @@ class Comment
         }
 
         if (!$full) $string = array_slice($string, 0, 1);
+
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 
-    public function getLikes()
+    public function getLikes(): int
     {
         $commentId = $this->getId();
 

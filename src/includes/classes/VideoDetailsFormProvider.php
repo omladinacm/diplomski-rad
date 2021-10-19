@@ -15,6 +15,9 @@ class VideoDetailsFormProvider
         $this->con = $con;
     }
 
+    /**
+     * @return string
+     */
     public function createUploadForm(): string
     {
         $fileInput = $this->createFileInput();
@@ -33,6 +36,11 @@ class VideoDetailsFormProvider
                 </form>";
     }
 
+    /**
+     * @param \Video $video
+     *
+     * @return string
+     */
     public function createEditDetailsForm(Video $video): string
     {
         $titleInput = $this->createTitleInput($video->getTitle());
@@ -49,6 +57,9 @@ class VideoDetailsFormProvider
                 </form>";
     }
 
+    /**
+     * @return string
+     */
     private function createFileInput(): string
     {
         return "<div class='form-group'>
@@ -56,6 +67,11 @@ class VideoDetailsFormProvider
                 </div>";
     }
 
+    /**
+     * @param null $value
+     *
+     * @return string
+     */
     private function createTitleInput($value = null): string
     {
         if ($value == null) $value = "";
@@ -65,6 +81,11 @@ class VideoDetailsFormProvider
                 </div>";
     }
 
+    /**
+     * @param null $value
+     *
+     * @return string
+     */
     private function createDescriptionInput($value = null): string
     {
         if ($value == null) $value = "";
@@ -74,7 +95,12 @@ class VideoDetailsFormProvider
                 </div>";
     }
 
-    private function createPrivacyInput($value = 0): string
+    /**
+     * @param int $value
+     *
+     * @return string
+     */
+    private function createPrivacyInput(int $value = 0): string
     {
         if ($value == null) $value = "";
 
@@ -88,6 +114,11 @@ class VideoDetailsFormProvider
                 </div>";
     }
 
+    /**
+     * @param null $value
+     *
+     * @return string
+     */
     private function createCategoriesInput($value = null): string
     {
         if ($value == null) $value = "";

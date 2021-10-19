@@ -1,9 +1,12 @@
 <?php
 
-require_once '../classes/ButtonProvider.php';
+require_once 'includes/classes/ButtonProvider.php';
 
 class VideoInfoControls
 {
+    /**
+     * @var \Video
+     */
     private Video $video;
 
     public function __construct(Video $video)
