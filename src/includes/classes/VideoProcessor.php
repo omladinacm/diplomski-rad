@@ -11,7 +11,7 @@ class VideoProcessor
      * Maximum file size limit for upload in bytes
      * @var int
      */
-    private int $sizeLimit = 500000000;
+    private int $sizeLimit = 8000000000;
     /**
      * Array of supported input file video formats
      * @var array|string[]
