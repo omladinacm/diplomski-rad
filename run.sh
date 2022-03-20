@@ -189,7 +189,7 @@ helper()
   echo $""
   echo $"Available methods:"
   echo $""
-  echo $"   env_create                Creates .env file from .env.example if it doesn't exist"
+  echo $"   create_env_file           Creates .env file from .env.example if it doesn't exist"
   echo $"   exec                      Execs into PHP Docker container"
   echo $"   load                      Bring up the environment"
   echo $"   unload                    Bring down the environment"
