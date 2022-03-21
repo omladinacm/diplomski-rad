@@ -63,9 +63,9 @@ class VideoUploadData
     }
 
     /**
-     * @return bool
+     * @return int
      */
-    public function getPrivacy(): bool
+    public function getPrivacy(): int
     {
         return $this->privacy;
     }
