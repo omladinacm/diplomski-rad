@@ -4,7 +4,7 @@ services:
   nginx:
     ports:
       - "8008:80"
-      - "8443:443"
+      - "8444:443"
     volumes:
       - ./nginx/local/default.conf:/etc/nginx/conf.d/www.conf
       - ../logs/nginx:/var/log/nginx
