@@ -179,7 +179,7 @@ helper()
 {
   echo $""
   echo $"Usage: $0 args [options]"
-  echo $"   $0 -m=setup [-v]"
+  echo $"   $0 -m=load [-v]"
   echo $""
   echo $"Available arguments:"
   echo $""
@@ -203,9 +203,8 @@ helper()
   echo $""
   echo $"Available options:"
   echo $""
-  echo $"   -v                        Verbose mode"
-  echo $""
-  echo $"   -a=, --argument=\"method argument\"   Additional argument used for methods that support it"
+  echo $"   -v                                Verbose mode"
+  echo $"   -a=, --argument=\"method argument\" Additional argument used for methods that support it"
   echo $""
 }
 

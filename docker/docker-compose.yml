@@ -23,7 +23,7 @@ services:
       - network
 
   db:
-    image: mariadb:10.5.7
+    image: mariadb:latest
     container_name: db
     restart: unless-stopped
     tty: true
