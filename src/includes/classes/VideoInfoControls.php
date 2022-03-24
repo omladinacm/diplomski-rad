@@ -1,6 +1,6 @@
 <?php
 
-require_once 'includes/classes/ButtonProvider.php';
+require_once 'ButtonProvider.php';
 
 class VideoInfoControls
 {

@@ -34,7 +34,7 @@ class NavigationMenuProvider
     {
         return "<div class='navigationItem'>
                     <a href='$link'>
-                        <img src='$icon'>
+                        <img src='$icon' alt='icon'>
                         <span>$text</span>                    
                     </a>
                 </div>";

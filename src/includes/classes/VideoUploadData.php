@@ -16,9 +16,9 @@ class VideoUploadData
      */
     private string $description;
     /**
-     * @var bool
+     * @var int
      */
-    private bool $privacy;
+    private int $privacy;
     /**
      * @var int
      */
