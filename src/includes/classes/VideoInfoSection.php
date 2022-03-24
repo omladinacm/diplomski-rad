@@ -1,7 +1,7 @@
 <?php
 
-require_once 'includes/classes/VideoInfoControls.php';
-require_once 'includes/classes/ButtonProvider.php';
+require_once 'VideoInfoControls.php';
+require_once 'ButtonProvider.php';
 
 class VideoInfoSection
 {
@@ -58,7 +58,7 @@ class VideoInfoSection
             $actionButton = ButtonProvider::createEditVideoButton($this->video->getId());
         } else {
             $userToObject = new User($this->con, $uploadedBy);
-            $actionButton = ButtonProvider::createSubscriberButton($this->con, $userToObject, $this->userLoggedInObj);
+            $actionButton = ButtonProvider::createSubscriberButton($userToObject, $this->userLoggedInObj);
         }
 
         return "<div class='secondaryInfo'>

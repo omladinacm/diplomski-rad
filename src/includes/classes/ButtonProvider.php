@@ -15,7 +15,7 @@ class ButtonProvider
     #[Pure]
     public static function createButton($text, $imageSrc, $action, $class): string
     {
-        $image = ($imageSrc == null) ? "" : "<img src='$imageSrc'>";
+        $image = ($imageSrc == null) ? "" : "<img src='$imageSrc' alt='$class'>";
 
         $action = self::createLink($action);
 
@@ -27,7 +27,7 @@ class ButtonProvider
 
     public static function createHyperlinkButton($text, $imageSrc, $href, $class): string
     {
-        $image = ($imageSrc == null) ? "" : "<img src='$imageSrc'>";
+        $image = ($imageSrc == null) ? "" : "<img src='$imageSrc' alt='$class'>";
 
         return "<a href='$href'>
                     <button class='$class'>
@@ -37,7 +37,7 @@ class ButtonProvider
                 </a>";
     }
 
-    public static function createUploadButton()
+    public static function createUploadButton(): string
     {
         $link = "upload.php";
 
@@ -53,7 +53,7 @@ class ButtonProvider
         $link = "profile.php?username=$username";
 
         return "<a href='$link'>
-                    <img src='$profilePic' class='profilePicture'>
+                    <img src='$profilePic' class='profilePicture' alt='Profile picture'>
                 </a>";
     }
 
@@ -64,14 +64,12 @@ class ButtonProvider
 
         $button = self::createHyperlinkButton("EDIT VIDEO", null, $href, "edit button");
 
-        $html = "<div class='editVideoButtonContainer'>
+        return "<div class='editVideoButtonContainer'>
                     $button
                 </div>";
-
-        return $html;
     }
 
-    public static function createSubscriberButton(PDO $con, User $userToObj, User $userLoggedInObj): string
+    public static function createSubscriberButton(User $userToObj, User $userLoggedInObj): string
     {
         $userTo = $userToObj->getUsername();
         $userLoggedIn = $userLoggedInObj->getUsername();

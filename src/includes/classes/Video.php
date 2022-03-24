@@ -238,7 +238,7 @@ class Video
 
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $comment = new Comment($this->con, $row, $this->userLoggedInObj, $videoId);
-            array_push($comments, $comment);
+            $comments[] = $comment;
         }
 
         return $comments;

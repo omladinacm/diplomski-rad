@@ -8,10 +8,10 @@ class VideoProcessor
      */
     private PDO $con;
     /**
-     * Maximum file size limit for upload in bytes
+     * Maximum file size limit for upload in bytes (1GB is set in PHP and Nginx configs)
      * @var int
      */
-    private int $sizeLimit = 8000000000;
+    private int $sizeLimit = 1073741824;
     /**
      * Array of supported input file video formats
      * @var array|string[]

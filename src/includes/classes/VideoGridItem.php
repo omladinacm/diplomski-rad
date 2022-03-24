@@ -38,7 +38,7 @@ class VideoGridItem
         $duration = $this->video->getDuration();
 
         return "<div class='thumbnail'>
-                    <img src='$thumbnail'>
+                    <img src='$thumbnail' alt='thumbnail'>
                     <div class='duration'>
                         <span>$duration</span>
                     </div>
